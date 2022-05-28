@@ -6,7 +6,6 @@ plugins {
 
 group 'org.islam'
 version '1.0-SNAPSHOT'
-sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
