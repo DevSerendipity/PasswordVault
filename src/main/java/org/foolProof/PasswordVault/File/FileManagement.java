@@ -1,7 +1,5 @@
 package org.foolProof.PasswordVault.File;
 
-import org.foolProof.PasswordVault.User.ClientConfig;
-
 import java.io.IOException;
 import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
@@ -17,7 +15,7 @@ public class FileManagement {
         return emails;
     }
 
-    private void addAllEmails() {
+    public void addAllEmails() {
         Path path = Paths.get("src/main/resources/mockData/userEmails.csv");
         try (Stream<String> stream = Files.lines(path)) {
             stream.forEach(emails::add);
