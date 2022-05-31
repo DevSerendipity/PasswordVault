@@ -17,7 +17,7 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public List<Client> getHashes() {
+    public List<Client> getAllClients() {
         return clientRepository.findAll();
     }
 
