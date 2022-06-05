@@ -15,5 +15,9 @@ public class WebsiteController {
     public String getLogin() {
         return "/login.html";
     }
+    @GetMapping("/getFolder")
+    public String getFolderSelected() {
+        return "/folderPicker.html";
+    }
 
 }
