@@ -11,13 +11,12 @@ public class WebsiteController {
         return "/register.html";
     }
 
-    @GetMapping("/login")
-    public String getLogin() {
-        return "/login.html";
-    }
     @GetMapping("/getFolder")
     public String getFolderSelected() {
         return "/folderPicker.html";
     }
-
+    @GetMapping("/password")
+    public String password() {
+        return "/password.html";
+    }
 }
