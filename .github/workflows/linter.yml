@@ -3,6 +3,8 @@ name: linter
 # Controls when the workflow will run
 on: [push, pull_request]
 
+  
+
 jobs:
   build:
     # The type of runner that the job will run on
@@ -15,7 +17,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Super-Linter
         uses: github/super-linter@v4.9.4
-
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: master
