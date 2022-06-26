@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller public class WebsiteController {
+@Controller
+public class WebsiteController {
 
     private final ClientService clientService;
 
@@ -17,23 +18,18 @@ import java.util.List;
         this.clientService = clientService;
     }
 
-    @GetMapping("/register") public String register() {
+    @GetMapping("/register")
+    public String getRegistration() {
         return "/register.html";
     }
 
-    @GetMapping("/login") public String getRegistration() {
-        return "/login.html";
-    }
-
-    @GetMapping("/getFolder") public String getFolderSelected() {
-        return "/folderPicker.html";
-    }
-
-    @GetMapping("/getFile") public String getFileSelected() {
+    @GetMapping("/getFile")
+    public String getFolderSelected() {
         return "/filePicker.html";
     }
 
-    @RequestMapping(value = "/password", method = RequestMethod.GET) public String getClient( Model model ) {
+    @RequestMapping(value = "/password", method = RequestMethod.GET)
+    public String getClient( Model model ) {
         List<Client> clients = clientService.getAllClients();
         model.addAttribute( "clients", clients );
         model.addAttribute( "client", new Client() );

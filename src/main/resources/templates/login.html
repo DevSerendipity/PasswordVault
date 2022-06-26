@@ -9,8 +9,16 @@
 </head>
 
 <body class="w-100 vh-100">
-<form class="w-25 vh-100 mx-auto " style="padding-top: 15%;padding-bottom: 15%;">
+
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<form class="w-25 vh-100 mx-auto " th:action="@{/login}" method="post" style="padding-top: 15%;padding-bottom: 15%;">
     <!-- Email input -->
+
 
     <div class="form-outline mb-4">
         <input type="email" id="form1Example1" class="form-control" placeholder="Email address"/>
