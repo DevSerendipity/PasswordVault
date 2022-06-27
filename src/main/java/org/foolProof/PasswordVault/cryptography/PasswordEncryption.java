@@ -1,4 +1,4 @@
-package org.foolProof.PasswordVault.encryption;
+package org.foolProof.PasswordVault.cryptography;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
-public class Encryption {
+public class PasswordEncryption {
       public String generateHashPassword(String password) {
         int iterations = 65536;
         char[] passwordCharacters = password.toCharArray();
