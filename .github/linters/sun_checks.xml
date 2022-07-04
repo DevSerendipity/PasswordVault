@@ -169,6 +169,7 @@
     <module name="EqualsHashCode"/>
     <module name="HiddenField">
       <property name="ignoreSetter" value="true"/>
+      <property name="ignoreConstructorParameter" value="true"/>
     </module>
     <module name="IllegalInstantiation"/>
     <module name="InnerAssignment"/>
@@ -187,7 +188,7 @@
     <!-- See https://checkstyle.org/config_design.html -->
     <!-- <module name="DesignForExtension"/> -->
     <module name="FinalClass"/>
-    <module name="HideUtilityClassConstructor"/>
+    <!-- <module name="HideUtilityClassConstructor"/> -->
     <module name="InterfaceIsType"/>
     <module name="VisibilityModifier"/>
 
