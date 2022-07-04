@@ -8,12 +8,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Service
-public class ClientService {
+@Service public class ClientService {
     private final ClientRepository clientRepository;
 
-    @Autowired
-    public ClientService(ClientRepository clientRepository) {
+    @Autowired public ClientService( ClientRepository clientRepository ) {
         this.clientRepository = clientRepository;
     }
 
@@ -21,36 +19,32 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public void addNewClient(Client client) {
-        Optional<Client> clientOptional =
-                clientRepository.findClientByEmail(client.getEmail());
-        if (clientOptional.isPresent()) {
-            throw new IllegalStateException("email taken");
+    public void addNewClient( Client client ) {
+        Optional<Client> clientOptional = clientRepository.findClientByEmail( client.getEmail() );
+        if ( clientOptional.isPresent() ) {
+            throw new IllegalStateException( "email taken" );
         }
-        clientRepository.save(client);
+        clientRepository.save( client );
     }
 
-    public void deleteClient(Long clientId) {
-        boolean clientExist = clientRepository.existsById(clientId);
-        if (!clientExist) {
-            throw new IllegalStateException("client with id:" + clientId + " does not exist.");
+    public void deleteClient( Long clientId ) {
+        boolean clientExist = clientRepository.existsById( clientId );
+        if ( !clientExist ) {
+            throw new IllegalStateException( "client with id:" + clientId + " does not exist." );
         }
-        clientRepository.deleteById(clientId);
+        clientRepository.deleteById( clientId );
     }
 
-    @Transactional
-    public void updateClient(Long clientId, String email, String fileName) {
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new IllegalStateException("client with id:" + clientId + " does not exist"));
+    @Transactional public void updateClient( Long clientId, String email ) {
+        Client client = clientRepository.findById( clientId )
+                .orElseThrow( () -> new IllegalStateException( "client with id:" + clientId + " does not exist" ) );
 
-        if (email != null && email.length() > 0 && !Objects.equals(client.getEmail(), email)) {
-            Optional<Client> clientOptional = clientRepository.findClientByEmail(email);
-            if (clientOptional.isPresent()) {
-                throw new IllegalStateException("email taken");
+        if ( email != null && email.length() > 0 && !Objects.equals( client.getEmail(), email ) ) {
+            Optional<Client> clientOptional = clientRepository.findClientByEmail( email );
+            if ( clientOptional.isPresent() ) {
+                throw new IllegalStateException( "email taken" );
             }
-            client.setEmail(email);
-        }
-        if (fileName != null && fileName.length() > 0 && !Objects.equals(client.getFileName(), fileName)) {
-            client.setFileName(fileName);
+            client.setEmail( email );
         }
     }
 }
