@@ -9,25 +9,36 @@
 </head>
 <body class="w-100 vh-100">
 <h2>CREATE AN ACCOUNT</h2>
-<form class="w-25 vh-100 mx-auto " style="padding-top: 15%;padding-bottom: 15%;">
+<form method="post" th:action="@{/register}" th:object="${client}" class="w-25 vh-100 mx-auto "
+      style="padding-top: 15%;padding-bottom: 15%;">
     <!-- Email input -->
 
     <div class="form-outline mb-4">
-        <input type="text" id="form1Example1" class="form-control" placeholder="Your name"/>
-    </div>
-    <div class="form-outline mb-4">
-        <input type="email" id="form1Example2" class="form-control" placeholder="Email address"/>
+        <input type="email" id="form1Example2" class="form-control" placeholder="Email address" th:field="*{email}"/>
     </div>
 
     <div class="form-outline mb-4">
-        <input type="password" placeholder="Password" id="form1Example3" class="form-control"/>
-    </div>
-    <div class="form-outline mb-4">
-        <input type="password" placeholder="Repeat Password" id="form1Example4" class="form-control"/>
+        <input type="password" placeholder="Password" id="form1Example3" class="form-control" th:field="*{password}"/>
     </div>
 
     <button type="submit" class="btn btn-primary btn-block w-100">Register</button>
 
 </form>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Password</th>
+    </tr>
+    <tr th:if="${#lists.isEmpty(clients)}">
+        <td colspan="5">No Records found. Add some...!</td>
+    </tr>
+    <tr th:each="client : ${clients}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.email}"></td>
+        <td th:text="${client.password}"></td>
+    </tr>
+</table>
 </body>
 </html>

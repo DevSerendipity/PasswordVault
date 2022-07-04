@@ -1,5 +1,7 @@
 package org.foolProof.PasswordVault.web;
 
+import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
+import org.bouncycastle.crypto.params.Argon2Parameters;
 import org.foolProof.PasswordVault.User.Client;
 import org.foolProof.PasswordVault.User.ClientService;
 import org.foolProof.PasswordVault.cryptography.PasswordEncryption;
@@ -9,8 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-public class WebsiteController {
+@Controller public class WebsiteController {
 
     private final ClientService clientService;
 
@@ -18,31 +19,25 @@ public class WebsiteController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/register")
-    public String getRegistration() {
-        return "/register.html";
-    }
-
-    @GetMapping("/getFile")
-    public String getFolderSelected() {
+    @GetMapping("/getFile") public String getFolderSelected() {
         return "/filePicker.html";
     }
 
-    @RequestMapping(value = "/password", method = RequestMethod.GET)
-    public String getClient( Model model ) {
+    @RequestMapping(value = "/register", method = RequestMethod.GET) public String getClient( Model model ) {
         List<Client> clients = clientService.getAllClients();
         model.addAttribute( "clients", clients );
         model.addAttribute( "client", new Client() );
-        return "password";
+        return "register";
     }
 
-    @RequestMapping(value = "/password", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveStudent( Model model, @ModelAttribute Client client ) {
         PasswordEncryption passwordEncryption = new PasswordEncryption();
         client.setPassword( passwordEncryption.generateHashPassword( client.getPassword() ) );
         System.out.println( client.getPassword() );
         model.addAttribute( "password", client.getPassword() );
         clientService.addNewClient( client );
-        return "redirect:/password";
+        return "redirect:/register";
     }
+
 }
