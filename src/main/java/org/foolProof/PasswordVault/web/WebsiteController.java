@@ -1,7 +1,5 @@
 package org.foolProof.PasswordVault.web;
 
-import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
-import org.bouncycastle.crypto.params.Argon2Parameters;
 import org.foolProof.PasswordVault.User.Client;
 import org.foolProof.PasswordVault.User.ClientService;
 import org.foolProof.PasswordVault.cryptography.PasswordEncryption;
