@@ -9,10 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration public class ClientConfig {
-    private FileManagement fileManagement = new FileManagement();
+    private final FileManagement fileManagement = new FileManagement();
 
     @Bean CommandLineRunner commandLineRunner( ClientRepository clientRepository ) {
-        /*int getLastClientById = clientRepository.findClientById();*/
 
         fileManagement.addAllEmails();
         System.out.println( "START" );
