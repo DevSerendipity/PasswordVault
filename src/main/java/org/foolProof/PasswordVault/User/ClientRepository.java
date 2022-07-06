@@ -10,4 +10,6 @@ import java.util.Optional;
 
     @Query("SELECT c FROM Client c WHERE c.email = ?1") Optional<Client> findClientByEmail( String email );
 
+    @Query(value = "SELECT MAX(id) FROM client", nativeQuery = true) int findClientById();
+
 }

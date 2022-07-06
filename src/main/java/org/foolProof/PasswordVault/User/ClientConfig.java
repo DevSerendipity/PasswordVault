@@ -12,15 +12,17 @@ import java.util.List;
     private final FileManagement fileManagement = new FileManagement();
 
     @Bean CommandLineRunner commandLineRunner( ClientRepository clientRepository ) {
-
+        int getLastClientById = clientRepository.findClientById();
         fileManagement.addAllEmails();
         System.out.println( "START" );
         return args -> {
             PasswordEncryption passwordEncryption = new PasswordEncryption();
-            for ( int i = 1; i < 2; i++ ) {
-                clientRepository.saveAll( List.of( new Client( fileManagement.getEmails().get( i ),
+            for ( int i = 0; i < 2; i++ ) {
+                clientRepository.saveAll( List.of( new Client( fileManagement.getEmails().get( getLastClientById + i ),
                                                                passwordEncryption.generateHashPassword(
-                                                                       fileManagement.getEmails().get( ( i ) ) ) ) ) );
+                                                                       fileManagement.getEmails()
+                                                                               .get( ( getLastClientById
+                                                                                       + i ) ) ) ) ) );
             }
         };
     }
