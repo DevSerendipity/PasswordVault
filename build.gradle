@@ -4,7 +4,6 @@ plugins {
     id 'java'
 }
 
-group 'org.islam'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -15,9 +14,9 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.70'
-    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-test'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
