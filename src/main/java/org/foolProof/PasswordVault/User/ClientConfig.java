@@ -17,7 +17,7 @@ import java.util.List;
         System.out.println("START");
         return args -> {
             Argon2PasswordEncoder argon2PasswordEncoder = new Argon2PasswordEncoder();
-            for( int i = 0; i < 2; i++ ) {
+            for ( int i = 0; i < 2; i++ ) {
                 clientRepository.saveAll(List.of(new Client(fileManagement.getEmails().get(getLastClientById + i),
                                                             argon2PasswordEncoder.encode(fileManagement.getEmails()
                                                                                                  .get((getLastClientById
