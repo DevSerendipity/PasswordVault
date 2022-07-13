@@ -48,7 +48,7 @@ public class AESFileEncryptionDecryption {
         new SecureRandom().nextBytes(nonce);
         return nonce;
     }
-//cipher.init(Cipher.ENCRYPT_MODE, aesKeyFromPassword, new GCMParameterSpec(TAG_LENGTH_BIT, iv));
+
     public static byte[] encrypt(byte[] pText, String password) {
         byte[] salt = getRandomNonce(SALT_LENGTH_BYTE);
         // GCM recommended 12 bytes iv?
@@ -155,7 +155,7 @@ public class AESFileEncryptionDecryption {
         return file;
     }
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         String password = "password123"; // TODO now we need to encrypt this
         String fromFile = "some.txt";
         String toFile = "C:\\Users\\Emir\\Desktop\\someText-encrypted.txt";
