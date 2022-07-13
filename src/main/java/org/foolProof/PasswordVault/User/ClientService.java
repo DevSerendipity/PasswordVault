@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service public class ClientService {
     private final ClientRepository clientRepository;
@@ -20,11 +19,14 @@ import java.util.Optional;
     }
 
     public void addNewClient( Client client ) {
-        Optional<Client> clientOptional = clientRepository.findClientByEmail( client.getEmail() );
-        if ( clientOptional.isPresent() ) {
+        if ( emailExists( client.getEmail() ) ) {
             throw new IllegalStateException( "email taken" );
         }
         clientRepository.save( client );
+    }
+
+    private boolean emailExists( String email ) {
+        return clientRepository.findClientByEmail( email ) != null;
     }
 
     public void deleteClient( Long clientId ) {
@@ -40,8 +42,7 @@ import java.util.Optional;
                 .orElseThrow( () -> new IllegalStateException( "client with id:" + clientId + " does not exist" ) );
 
         if ( email != null && email.length() > 0 && !Objects.equals( client.getEmail(), email ) ) {
-            Optional<Client> clientOptional = clientRepository.findClientByEmail( email );
-            if ( clientOptional.isPresent() ) {
+            if ( emailExists( client.getEmail() ) ) {
                 throw new IllegalStateException( "email taken" );
             }
             client.setEmail( email );
