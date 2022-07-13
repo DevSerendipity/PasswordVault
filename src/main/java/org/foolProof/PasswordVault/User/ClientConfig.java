@@ -11,17 +11,17 @@ import java.util.List;
 @Configuration public class ClientConfig {
     private final FileManagement fileManagement = new FileManagement();
 
-    @Bean CommandLineRunner commandLineRunner( ClientRepository clientRepository ) {
+    @Bean CommandLineRunner commandLineRunner(ClientRepository clientRepository) {
         int getLastClientById = clientRepository.findClientById();
         fileManagement.addAllEmails();
-        System.out.println( "START" );
+        System.out.println("START");
         return args -> {
             Argon2PasswordEncoder argon2PasswordEncoder = new Argon2PasswordEncoder();
-            for ( int i = 0; i < 2; i++ ) {
-                clientRepository.saveAll( List.of( new Client( fileManagement.getEmails().get( getLastClientById + i ),
-                                                               argon2PasswordEncoder.encode( fileManagement.getEmails()
-                                                                                                     .get( ( getLastClientById
-                                                                                                             + i ) ) ) ) ) );
+            for( int i = 0; i < 2; i++ ) {
+                clientRepository.saveAll(List.of(new Client(fileManagement.getEmails().get(getLastClientById + i),
+                                                            argon2PasswordEncoder.encode(fileManagement.getEmails()
+                                                                                                 .get((getLastClientById
+                                                                                                         + i))))));
             }
         };
     }
