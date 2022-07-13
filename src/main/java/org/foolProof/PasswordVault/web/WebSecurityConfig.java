@@ -12,13 +12,13 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration @EnableWebSecurity public class WebSecurityConfig {
 
+    @Autowired private MyUserDetailsService myUserDetailsService;
+
     @Bean public SecurityFilterChain websiteFilter(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/getFile").authenticated().antMatchers("/register").permitAll().and()
                 .formLogin().permitAll().and().logout().permitAll();
         return http.build();
     }
-
-    @Autowired private MyUserDetailsService myUserDetailsService;
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         System.out.println("Auth");
