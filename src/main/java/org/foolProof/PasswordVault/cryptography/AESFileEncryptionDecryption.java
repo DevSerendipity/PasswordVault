@@ -27,7 +27,7 @@ public class AESFileEncryptionDecryption {
         KeySpec spec = new PBEKeySpec(password, salt, ITERATION_COUNT, KEY_LENGTH);
         try {
             return new SecretKeySpec(getSecretKey().generateSecret(spec).getEncoded(), "AES");
-        } catch( InvalidKeySpecException e ) {
+        } catch ( InvalidKeySpecException e ) {
             throw new RuntimeException(e);
         }
     }
@@ -36,7 +36,7 @@ public class AESFileEncryptionDecryption {
         SecretKeyFactory factory;
         try {
             factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        } catch( NoSuchAlgorithmException e ) {
+        } catch ( NoSuchAlgorithmException e ) {
             throw new RuntimeException(e);
         }
         return factory;
@@ -65,7 +65,7 @@ public class AESFileEncryptionDecryption {
     private static void cipherInitialization(Cipher cipher, int encryptMode, SecretKey aesKeyFromPassword, byte[] iv) {
         try {
             cipher.init(encryptMode, aesKeyFromPassword, new GCMParameterSpec(TAG_LENGTH_BIT, iv));
-        } catch( InvalidKeyException | InvalidAlgorithmParameterException e ) {
+        } catch ( InvalidKeyException | InvalidAlgorithmParameterException e ) {
             throw new RuntimeException(e);
         }
     }
@@ -74,7 +74,7 @@ public class AESFileEncryptionDecryption {
         byte[] cipherText;
         try {
             cipherText = cipher.doFinal(pText);
-        } catch( IllegalBlockSizeException | BadPaddingException e ) {
+        } catch ( IllegalBlockSizeException | BadPaddingException e ) {
             throw new RuntimeException(e);
         }
         return cipherText;
@@ -84,7 +84,7 @@ public class AESFileEncryptionDecryption {
         Cipher cipher;
         try {
             cipher = Cipher.getInstance(ENCRYPT_ALGO);
-        } catch( NoSuchAlgorithmException | NoSuchPaddingException e ) {
+        } catch ( NoSuchAlgorithmException | NoSuchPaddingException e ) {
             throw new RuntimeException(e);
         }
         return cipher;
@@ -107,7 +107,7 @@ public class AESFileEncryptionDecryption {
         cipherInitialization(cipher, Cipher.DECRYPT_MODE, aesKeyFromPassword, iv);
         try {
             return cipher.doFinal(cipherText);
-        } catch( IllegalBlockSizeException | BadPaddingException e ) {
+        } catch ( IllegalBlockSizeException | BadPaddingException e ) {
             throw new RuntimeException(e);
         }
     }
@@ -126,7 +126,7 @@ public class AESFileEncryptionDecryption {
         byte[] fileContent;
         try {
             fileContent = Files.readAllBytes(Paths.get(ClassLoader.getSystemResource(fromFile).toURI()));
-        } catch( IOException | URISyntaxException e ) {
+        } catch ( IOException | URISyntaxException e ) {
             throw new RuntimeException(e);
         }
         return fileContent;
@@ -135,7 +135,7 @@ public class AESFileEncryptionDecryption {
     private static void writeToFile(byte[] encryptedText, Path path) {
         try {
             Files.write(path, encryptedText);
-        } catch( IOException e ) {
+        } catch ( IOException e ) {
             throw new RuntimeException(e);
         }
     }
@@ -149,7 +149,7 @@ public class AESFileEncryptionDecryption {
         byte[] file;
         try {
             file = Files.readAllBytes(Paths.get(fromEncryptedFile));
-        } catch( IOException e ) {
+        } catch ( IOException e ) {
             throw new RuntimeException(e);
         }
         return file;
