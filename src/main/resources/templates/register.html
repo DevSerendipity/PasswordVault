@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">>
 
 <head>
     <title>Cover Template for Bootstrap</title>
@@ -7,6 +8,7 @@
 </head>
 <body class="w-100 vh-100">
 <h2>CREATE AN ACCOUNT</h2>
+
 <form method="post" th:action="@{/register}" th:object="${client}" class="w-25 vh-100 mx-auto "
       style="padding-top: 15%;padding-bottom: 15%;">
     <!-- Email input -->
