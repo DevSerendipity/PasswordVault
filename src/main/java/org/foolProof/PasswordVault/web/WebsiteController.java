@@ -2,7 +2,7 @@ package org.foolProof.PasswordVault.web;
 
 import org.foolProof.PasswordVault.User.Client;
 import org.foolProof.PasswordVault.User.ClientService;
-import org.foolProof.PasswordVault.cryptography.PasswordEncryption;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +30,8 @@ import java.util.List;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveStudent( Model model, @ModelAttribute Client client ) {
-        PasswordEncryption passwordEncryption = new PasswordEncryption();
-        client.setPassword( passwordEncryption.generateHashPassword( client.getPassword() ) );
+        Argon2PasswordEncoder argon2PasswordEncoder = new Argon2PasswordEncoder();
+        client.setPassword( argon2PasswordEncoder.encode( client.getPassword() ) );
         System.out.println( client.getPassword() );
         model.addAttribute( "password", client.getPassword() );
         clientService.addNewClient( client );
