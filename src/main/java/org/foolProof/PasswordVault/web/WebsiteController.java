@@ -20,7 +20,7 @@ import java.util.List;
 
     private final ClientService clientService;
 
-    public WebsiteController( ClientService clientService ) {
+    public WebsiteController(ClientService clientService) {
         this.clientService = clientService;
     }
 
@@ -28,11 +28,10 @@ import java.util.List;
         return "/folderPicker.html";
     }
 
-    @Value("${file.upload-dir}")
-    String File_Directory;
+    @Value("${file.upload-dir}") String File_Directory;
 
-    @RequestMapping(value="/uploadFile", method = RequestMethod.POST)
-    public ResponseEntity<Object> fileUpload(@RequestParam("File") MultipartFile file ) throws IOException {
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    public ResponseEntity<Object> fileUpload(@RequestParam("File") MultipartFile file) throws IOException {
         File myFile = new File(File_Directory + file.getOriginalFilename());
 
         myFile.createNewFile();
@@ -44,20 +43,20 @@ import java.util.List;
         return new ResponseEntity<>("The file uploaded successfully", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET) public String getClient( Model model ) {
+    @RequestMapping(value = "/register", method = RequestMethod.GET) public String getClient(Model model) {
         List<Client> clients = clientService.getAllClients();
-        model.addAttribute( "clients", clients );
-        model.addAttribute( "client", new Client() );
+        model.addAttribute("clients", clients);
+        model.addAttribute("client", new Client());
         return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String saveStudent( Model model, @ModelAttribute Client client ) {
+    public String saveStudent(Model model, @ModelAttribute Client client) {
         Argon2PasswordEncoder argon2PasswordEncoder = new Argon2PasswordEncoder();
-        client.setPassword( argon2PasswordEncoder.encode( client.getPassword() ) );
-        System.out.println( client.getPassword() );
-        model.addAttribute( "password", client.getPassword() );
-        clientService.addNewClient( client );
+        client.setPassword(argon2PasswordEncoder.encode(client.getPassword()));
+        System.out.println(client.getPassword());
+        model.addAttribute("password", client.getPassword());
+        clientService.addNewClient(client);
         return "redirect:/register";
     }
 

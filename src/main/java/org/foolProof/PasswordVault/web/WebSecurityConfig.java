@@ -16,8 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
     @Bean public SecurityFilterChain websiteFilter(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
-        http.authorizeRequests().antMatchers("/getFile").authenticated().antMatchers("/uploadFile","/register").permitAll().and()
-                .formLogin().permitAll().and().logout().permitAll();
+        http.authorizeRequests().antMatchers("/getFile").authenticated().antMatchers("/uploadFile", "/register")
+                .permitAll().and().formLogin().permitAll().and().logout().permitAll();
         return http.build();
     }
 
