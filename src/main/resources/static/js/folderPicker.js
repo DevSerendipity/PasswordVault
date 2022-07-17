@@ -1,13 +1,12 @@
 document.getElementById('filepicker').addEventListener(
   'change',
   function (event) {
-    let output = document.getElementById('listing')
-    let files = event.target.files
+    const files = event.target.files
 
     for (let i = 0; i < files.length; i++) {
-      let item = document.createElement('li')
+      const item = document.createElement('li')
       item.innerHTML = files[i].webkitRelativePath
-      var source = item.innerHTML
+      let source = item.innerHTML
       $('#result').val(source)
     }
   },
