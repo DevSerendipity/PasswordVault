@@ -19,7 +19,7 @@ import java.util.List;
 @Controller public class WebsiteController {
 
     private final ClientService clientService;
-    @Value("${file.upload-dir}") String fileDirectory;
+    @Value("${file.upload-dir}") private String fileDirectory;
 
     public WebsiteController(ClientService clientService) {
         this.clientService = clientService;
