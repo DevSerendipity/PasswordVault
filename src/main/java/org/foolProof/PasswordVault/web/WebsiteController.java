@@ -19,6 +19,7 @@ import java.util.List;
 @Controller public class WebsiteController {
 
     private final ClientService clientService;
+    @Value("${file.upload-dir}") String fileDirectory;
 
     public WebsiteController(ClientService clientService) {
         this.clientService = clientService;
@@ -28,16 +29,12 @@ import java.util.List;
         return "/folderPicker.html";
     }
 
-    @Value("${file.upload-dir}") String File_Directory;
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public ResponseEntity<Object> fileUpload(@RequestParam("File") MultipartFile file) throws IOException {
-        File myFile = new File(File_Directory + file.getOriginalFilename());
-
+        File myFile = new File(fileDirectory + file.getOriginalFilename());
         myFile.createNewFile();
-
         FileOutputStream fos = new FileOutputStream(myFile);
-
         fos.write(file.getBytes());
         fos.close();
         return new ResponseEntity<>("The file uploaded successfully", HttpStatus.OK);
