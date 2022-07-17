@@ -6,7 +6,7 @@ document.getElementById('filepicker').addEventListener(
     for (let i = 0; i < files.length; i++) {
       const item = document.createElement('li')
       item.innerHTML = files[i].webkitRelativePath
-      let source = item.innerHTML
+      const source = item.innerHTML
       $('#result').val(source)
     }
   },
