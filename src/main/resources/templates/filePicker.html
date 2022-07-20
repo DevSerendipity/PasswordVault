@@ -8,8 +8,10 @@
     <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
 </head>
 <body>
-    <input type="file" id="file-picker" multiple>
-    <div id="output"></div>
+<form th:action="@{/uploadFile}" method="post" enctype="multipart/form-data">
+    <input type="file" id="file-picker" name="file">
+    <input type="submit" value="Download Encrypted File">
+</form>
 </body>
 <script th:src="@{/js/filePicker.js}" type="text/javascript"></script>
 </html>

@@ -125,8 +125,8 @@ public class AESFileEncryptionDecryption {
     private static byte[] getFileContent(String fromFile) {
         byte[] fileContent;
         try {
-            fileContent = Files.readAllBytes(Paths.get(ClassLoader.getSystemResource(fromFile).toURI()));
-        } catch ( IOException | URISyntaxException e ) {
+            fileContent = Files.readAllBytes(Paths.get(fromFile));
+        } catch ( IOException e ) {
             throw new RuntimeException(e);
         }
         return fileContent;
@@ -155,15 +155,14 @@ public class AESFileEncryptionDecryption {
         return file;
     }
 
-    public static void main(String[] args) {
+    public static void startCryptography(String fromFile) {
         String password = "password123"; // TODO now we need to encrypt this
-        String fromFile = "some.txt";
-        String toFile = "C:\\Users\\Emir\\Desktop\\someText-encrypted.txt";
+        String toFile = "C:\\testing\\someText.txt-encrypted.txt";
         // encrypt file
         encryptFile(fromFile, toFile, password);
         // decrypt file
-        byte[] decryptedText = decryptFile(toFile, password);
+        /*byte[] decryptedText = decryptFile(toFile, password);
         String pText = new String(decryptedText);
-        System.out.println(pText);
+        System.out.println(pText);*/
     }
 }
