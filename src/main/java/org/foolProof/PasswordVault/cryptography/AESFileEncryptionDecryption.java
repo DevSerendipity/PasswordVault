@@ -162,34 +162,35 @@ public class AESFileEncryptionDecryption {
 
     public static void startCryptography(String fromFile) {
         String password = "password123"; // TODO now we need to encrypt this
-        Path path = Paths.get(fromFile);
-        if( isFileEncrypted(fromFile) ) {
+        String file = fromFile;
+        Path path = Paths.get(file);
+        if ( isFileEncrypted(file) ) {
             // decrypt file
-            byte[] decryptedText = decryptFile(fromFile, password);
-            fromFile = fromFile.replace("-encrypted.txt", "");
-            Path newPath = path.resolveSibling(fromFile);
+            byte[] decryptedText = decryptFile(file, password);
+            file = file.replace("-encrypted.txt", "");
+            Path newPath = path.resolveSibling(file);
             try {
                 // rename a file in the same directory
                 Files.copy(path, newPath, StandardCopyOption.REPLACE_EXISTING);
             } catch ( IOException e ) {
                 e.printStackTrace();
             }
-            setTrueFileName(fromFile);
+            setTrueFileName(file);
             try {
                 Files.write(newPath, new String(decryptedText, StandardCharsets.UTF_8).getBytes());
             } catch ( IOException e ) {
                 throw new RuntimeException(e);
             }
         } else {
-            fromFile = fromFile.replace(fromFile, fromFile.concat("-encrypted.txt"));
+            file = file.replace(file, file.concat("-encrypted.txt"));
             try {
-                Files.copy(path, Paths.get(fromFile), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(path, Paths.get(file), StandardCopyOption.REPLACE_EXISTING);
             } catch ( IOException e ) {
                 e.printStackTrace();
                 System.out.println(e.getMessage());
             }
-            setTrueFileName(fromFile);
-            encryptFile(fromFile, fromFile, password);
+            setTrueFileName(file);
+            encryptFile(file, file, password);
         }
     }
 
