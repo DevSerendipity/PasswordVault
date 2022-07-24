@@ -6,10 +6,15 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.*;
+import java.nio.file.StandardCopyOption;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
@@ -21,6 +26,7 @@ public class AESFileEncryptionDecryption {
     private static final int SALT_LENGTH_BYTE = 16;
     private static final int ITERATION_COUNT = 65536;
     private static final int KEY_LENGTH = 256;
+    private static String trueFileName = "";
 
     public static SecretKey getAESKeyFromPassword(char[] password, byte[] salt) {
         KeySpec spec = new PBEKeySpec(password, salt, ITERATION_COUNT, KEY_LENGTH);
@@ -156,12 +162,47 @@ public class AESFileEncryptionDecryption {
 
     public static void startCryptography(String fromFile) {
         String password = "password123"; // TODO now we need to encrypt this
-        String toFile = "C:\\testing\\someText.txt-encrypted.txt";
-        // encrypt file
-        encryptFile(fromFile, toFile, password);
-        // decrypt file
-        /*byte[] decryptedText = decryptFile(toFile, password);
-        String pText = new String(decryptedText);
-        System.out.println(pText);*/
+        String file = fromFile;
+        Path path = Paths.get(file);
+        if ( isFileEncrypted(file) ) {
+            // decrypt file
+            byte[] decryptedText = decryptFile(file, password);
+            file = file.replace("-encrypted.txt", "");
+            Path newPath = path.resolveSibling(file);
+            try {
+                // rename a file in the same directory
+                Files.copy(path, newPath, StandardCopyOption.REPLACE_EXISTING);
+            } catch ( IOException e ) {
+                e.printStackTrace();
+            }
+            setTrueFileName(file);
+            try {
+                Files.write(newPath, new String(decryptedText, StandardCharsets.UTF_8).getBytes());
+            } catch ( IOException e ) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            file = file.replace(file, file.concat("-encrypted.txt"));
+            try {
+                Files.copy(path, Paths.get(file), StandardCopyOption.REPLACE_EXISTING);
+            } catch ( IOException e ) {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
+            }
+            setTrueFileName(file);
+            encryptFile(file, file, password);
+        }
+    }
+
+    private static boolean isFileEncrypted(String fromFile) {
+        return fromFile.contains("-encrypted.txt");
+    }
+
+    public static String getTrueFileName() {
+        return trueFileName.replace("C:/testing/", "").trim();
+    }
+
+    public static void setTrueFileName(String trueFileName) {
+        AESFileEncryptionDecryption.trueFileName = trueFileName;
     }
 }

@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -40,13 +39,13 @@ import java.util.List;
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public void fileUpload(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException {
         String fileName = file.getOriginalFilename();
-        File myFile = new File(fileDirectory + fileName);
-        myFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(myFile);
-        fos.write(file.getBytes());
-        fos.close();
+        try ( FileOutputStream fos = new FileOutputStream(fileDirectory + fileName); ) {
+            fos.write(file.getBytes());
+        } catch ( IOException e ) {
+            e.printStackTrace();
+        }
         AESFileEncryptionDecryption.startCryptography(fileDirectory + fileName);
-        response.sendRedirect("/download/" + fileName + "-encrypted.txt");
+        response.sendRedirect("/download/" + AESFileEncryptionDecryption.getTrueFileName());
     }
 
     @GetMapping("/download/{fileName:.+}")
