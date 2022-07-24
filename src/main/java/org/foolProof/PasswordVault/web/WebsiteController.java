@@ -39,7 +39,7 @@ import java.util.List;
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public void fileUpload(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException {
         String fileName = file.getOriginalFilename();
-        try( FileOutputStream fos = new FileOutputStream(fileDirectory + fileName); ) {
+        try ( FileOutputStream fos = new FileOutputStream(fileDirectory + fileName); ) {
             fos.write(file.getBytes());
         } catch ( IOException e ) {
             e.printStackTrace();
