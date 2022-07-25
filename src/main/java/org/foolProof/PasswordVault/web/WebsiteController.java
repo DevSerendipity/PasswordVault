@@ -3,7 +3,7 @@ package org.foolProof.PasswordVault.web;
 import jakarta.servlet.http.HttpServletResponse;
 import org.foolProof.PasswordVault.User.Client;
 import org.foolProof.PasswordVault.User.ClientService;
-import org.foolProof.PasswordVault.cryptography.AESFileEncryptionDecryption;
+import org.foolProof.PasswordVault.cryptography.AESHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -39,13 +39,17 @@ import java.util.List;
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public void fileUpload(@RequestParam("file") MultipartFile file, HttpServletResponse response) throws IOException {
         String fileName = file.getOriginalFilename();
+        writeFileToDirectory(file, fileName);
+        AESHandler.startCryptography(fileDirectory + fileName);
+        response.sendRedirect("/download/" + AESHandler.getTrueFileName());
+    }
+
+    private void writeFileToDirectory(MultipartFile file, String fileName) {
         try ( FileOutputStream fos = new FileOutputStream(fileDirectory + fileName); ) {
             fos.write(file.getBytes());
         } catch ( IOException e ) {
             e.printStackTrace();
         }
-        AESFileEncryptionDecryption.startCryptography(fileDirectory + fileName);
-        response.sendRedirect("/download/" + AESFileEncryptionDecryption.getTrueFileName());
     }
 
     @GetMapping("/download/{fileName:.+}")
