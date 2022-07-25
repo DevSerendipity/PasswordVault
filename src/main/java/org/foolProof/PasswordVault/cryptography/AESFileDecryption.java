@@ -41,7 +41,8 @@ public class AESFileDecryption {
         return decrypt(file, password);
     }
 
-    static void decryptController(String password, String file, Path path) {
+    static void decryptController(String password, String fromFile, Path path) {
+        String file = fromFile;
         byte[] decryptedText = AESFileDecryption.decryptFile(file, password);
         file = file.replace("-encrypted.txt", "");
         Path newPath = path.resolveSibling(file);

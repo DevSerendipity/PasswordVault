@@ -45,12 +45,11 @@ public class AESHandler {
 
     public static void startCryptography(String fromFile) {
         String password = "password123"; // TODO now we need to encrypt this
-        String file = fromFile;
-        Path path = Paths.get(file);
-        if ( isFileEncrypted(file) ) {
-            AESFileDecryption.decryptController(password, file, path);
+        Path path = Paths.get(fromFile);
+        if ( isFileEncrypted(fromFile) ) {
+            AESFileDecryption.decryptController(password, fromFile, path);
         } else {
-            AESFileEncryption.encryptController(password, file, path);
+            AESFileEncryption.encryptController(password, fromFile, path);
         }
     }
 
