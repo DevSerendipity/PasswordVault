@@ -37,14 +37,15 @@ public class AESFileEncryption {
     }
 
     static void encryptController(String password, String fromFile, Path path) {
+        String file = fromFile.concat("-encrypted.txt");
         try {
-            Files.copy(path, Paths.get(fromFile.concat("-encrypted.txt")), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(path, Paths.get(file), StandardCopyOption.REPLACE_EXISTING);
         } catch ( IOException e ) {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        AESHandler.setTrueFileName(fromFile);
-        AESFileEncryption.encryptFile(fromFile, fromFile, password);
+        AESHandler.setTrueFileName(file);
+        AESFileEncryption.encryptFile(file, file, password);
     }
 
 }
