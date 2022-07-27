@@ -1,9 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <title>Cover Template for Bootstrap</title>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Pick a file of your liking</title>
 </head>
 <body>
 <form th:action="@{/uploadFile}" method="post" enctype="multipart/form-data">
@@ -11,7 +9,5 @@
     <input type="submit" value="Download Encrypted File">
 </form>
 </body>
-<script th:src="@{/js/jquery-3.6.0.min.js}" type="text/javascript"></script>
-<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
 <script th:src="@{/js/filePicker.js}" type="text/javascript"></script>
 </html>
