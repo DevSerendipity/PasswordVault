@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
     @Autowired private MyUserDetailsService myUserDetailsService;
 
-    @Autowired PasswordEncoder passwordEncoder = new Argon2PasswordEncoder();
+    @Autowired private PasswordEncoder passwordEncoder = new Argon2PasswordEncoder();
 
     @Bean public SecurityFilterChain websiteFilter(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/file").authenticated().antMatchers("/uploadFile", "/register")
