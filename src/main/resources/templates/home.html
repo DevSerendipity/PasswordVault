@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>home</title>
+    <link href="/css/dist/output.css" rel="stylesheet" />
+</head>
+<body class="h-screen w-full">
+<!--
+  text-center
+  justify-center, justify-evenly
+  justify-items-center
+  justify-self-center
+  content-center
+  items-center
+  self-center
+  place-content-center
+  place-items-center
+  place-self-center
+-->
+<!---NAVIGATION--->
+<!--wrap in a div so I can flex it-->
+<div class=" flex w-full h-16 ">
+    <a
+            class="h-full w-1/4 flex justify-center items-center hover:bg-slate-200"
+            href="http://localhost:8080"
+    >Home</a
+    >
+    <a
+            class="h-full w-1/4 flex justify-center items-center hover:bg-slate-200"
+            href="http://localhost:8080/file"
+    >File</a
+    >
+    <a
+            class="h-full w-1/4 flex justify-center items-center hover:bg-slate-200"
+            href="http://localhost:8080/register"
+    >Registration</a
+    >
+    <a
+            class="h-full w-1/4 flex justify-center items-center hover:bg-slate-200"
+            href="http://localhost:8080/login"
+    >Login</a
+    >
+</div>
+<div
+        class="h-4/6 w-full text-center flex justify-center items-center text-7xl"
+>
+    Welcome
+</div>
+<div class="flex w-full flex-col justify-center items-center h-44">
+    <div class="text-3xl">
+        About application
+    </div>
+    <div class="text-base">
+        You register/login to the application, select a txt file you want to
+        encrypt, than press download.
+    </div>
+    <div class="text-sm">
+        When wanting to decrypt back the application you select the file that
+        was encrypted and download.
+    </div>
+</div>
+</body>
+</html>
