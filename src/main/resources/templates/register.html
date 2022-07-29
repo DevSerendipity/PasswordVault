@@ -2,9 +2,35 @@
 <html lang="en" class="h-full bg-gray-50" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Welcome to the application</title>
-    <link href="/css/dist/output.css" rel="stylesheet" />
+    <link
+            href="/css/dist/output.css"
+            rel="stylesheet"
+    />
 </head>
 <body class="h-full">
+<div class="absolute flex w-full h-16 ">
+    <a
+            class="h-full w-1/4 flex justify-center items-center hover:bg-slate-200"
+            href="http://localhost:8080"
+    >Home</a
+    >
+    <a
+            class="h-full w-1/4 flex justify-center items-center hover:bg-slate-200"
+            href="http://localhost:8080/file"
+    >File</a
+    >
+    <a
+            class="h-full w-1/4 flex justify-center items-center hover:bg-slate-200"
+            href="http://localhost:8080/register"
+    >Registration</a
+    >
+    <a
+            class="h-full w-1/4 flex justify-center items-center hover:bg-slate-200"
+            href="http://localhost:8080/login"
+    >Login</a
+    >
+</div>
+
 <div
         class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
 >

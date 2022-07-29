@@ -32,6 +32,10 @@ import java.util.List;
         this.clientService = clientService;
     }
 
+    @GetMapping("/") public String home() {
+        return "/home.html";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET) public String login() {
         return "/login.html";
     }
